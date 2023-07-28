@@ -1,25 +1,31 @@
 package bunkyo.exsample.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.TintableCheckedTextView;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.TextView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     //変数定義
+    TextView titleText = (TextView) findViewById(R.id.titleText);
+    Button revButton = (Button) findViewById(R.id.prevButton);
+    Button nextButton = (Button) findViewById(R.id.nextButton);
+    GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DateManagement datemanagement = new DateManagement();
+        titleText.setText(datemanagement.getTitleText());
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(this,R.layout.activity_main,datemanagement.girdArray());
+        calendarGridView.setAdapter(arrayAdapter);
 
     }
 }

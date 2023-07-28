@@ -62,9 +62,9 @@
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@color/whiteColor"
-                android:text="日"
                 android:textAlignment="center"
-                android:textColor="@color/redColor" />
+                android:textColor="@color/redColor"
+                android:text="日" />
 
             <TextView
                 android:layout_width="0dp"
@@ -138,8 +138,7 @@
             android:horizontalSpacing="1dp"
             android:numColumns="7"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="1dp"
-            tools:visibility="visible"></GridView>
+            android:verticalSpacing="1dp"></GridView>
 
     </LinearLayout>
 </LinearLayout>

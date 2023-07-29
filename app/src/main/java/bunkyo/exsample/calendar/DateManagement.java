@@ -17,16 +17,6 @@ public class DateManagement {
     }
 
 
-    //現在の年を求める
-    public int current_y(){
-        int year = cl.get(Calendar.YEAR);
-        return year;
-    }
-    //現在の月を求める
-    public int current_m(){
-        int month = cl.get(Calendar.MONTH)+1;
-        return month;
-    }
     //Calender型に次の月を指定させる
     public void nextMonth(){
         cl.add(Calendar.MONTH, 1);

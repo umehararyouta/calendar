@@ -18,26 +18,34 @@ public class DateManagement {
 
 
     //Calender型に次の月を指定させる
-    public void nextMonth(){
+    public Date nextMonth(Date LookingDate){
+        cl.setTime(LookingDate);
         cl.add(Calendar.MONTH, 1);
+        LookingDate =  cl.getTime();
+        return LookingDate;
     }
 
     //Calender型に次の月を指定させる
-    public void prevMonth(){
+    public Date prevMonth(Date LookingDate){
+        cl.setTime(LookingDate);
         cl.add(Calendar.MONTH, -1);
+        LookingDate = cl.getTime();
+        return LookingDate;
     }
     //曜日取得(1:日曜日, 2:月曜日, ..., 7:土曜日)
     public int DayOfWeek(){
         int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
         return firstDayOfWeek;
     }
-    public String getTitleText(){
+    public String getTitleText(Date LookingDate){
+        cl.setTime(LookingDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
         return format.format(cl.getTime());
     }
 
     //その月の要素を取得[日曜から1日まで＋1~n日＋n日から土曜まで]
-    public List<Integer> girdArray(){
+    public List<Integer> girdArray(Date LookingDate){
+        cl.setTime(LookingDate);
         Date startDate = cl.getTime();
         //月末の日数
         int MonthEnd = cl.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -72,4 +80,10 @@ public class DateManagement {
         cl.setTime(startDate);
         return day;
     }
+    public static Date nowDate(){
+        Calendar cl = Calendar.getInstance();
+        Date LookingDate = cl.getTime();
+        return LookingDate;
+    }
+    public static Date LookingDate = nowDate();
 }

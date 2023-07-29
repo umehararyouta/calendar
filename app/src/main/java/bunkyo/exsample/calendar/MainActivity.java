@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,22 +25,22 @@ public class MainActivity extends AppCompatActivity {
         GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
         TextView titleText = (TextView) findViewById(R.id.titleText);
 
-
         DateManagement datemanagement = new DateManagement();
-        titleText.setText(datemanagement.getTitleText());
-        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this,R.layout.date,datemanagement.girdArray());
+        titleText.setText(datemanagement.getTitleText(datemanagement.LookingDate));
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this,R.layout.date,datemanagement.girdArray(datemanagement.LookingDate));
         calendarGridView.setAdapter(arrayAdapter);
     }
     View.OnClickListener next = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             DateManagement dateManagement = new DateManagement();
-            dateManagement.nextMonth();
+
+            dateManagement.LookingDate = dateManagement.nextMonth(dateManagement.LookingDate);
 
             GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
             TextView titleText = (TextView) findViewById(R.id.titleText);
-            titleText.setText(dateManagement.getTitleText());
-            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray());
+            titleText.setText(dateManagement.getTitleText(dateManagement.LookingDate));
+            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray(dateManagement.LookingDate));
             calendarGridView.setAdapter(arrayAdapter);
         }
     };
@@ -46,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             DateManagement dateManagement = new DateManagement();
-            dateManagement.prevMonth();
+            dateManagement.LookingDate = dateManagement.prevMonth(dateManagement.LookingDate);
 
             GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
             TextView titleText = (TextView) findViewById(R.id.titleText);
-            titleText.setText(dateManagement.getTitleText());
-            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray());
+            titleText.setText(dateManagement.getTitleText(dateManagement.LookingDate));
+            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray(dateManagement.LookingDate));
             calendarGridView.setAdapter(arrayAdapter);
         }
     };

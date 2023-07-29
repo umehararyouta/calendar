@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         DateManagement datemanagement = new DateManagement();
         titleText.setText(datemanagement.getTitleText());
-        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this,R.layout.activity_main,datemanagement.girdArray());
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this,R.layout.date,datemanagement.girdArray());
         calendarGridView.setAdapter(arrayAdapter);
     }
     View.OnClickListener next = new View.OnClickListener() {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
             TextView titleText = (TextView) findViewById(R.id.titleText);
             titleText.setText(dateManagement.getTitleText());
-            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(MainActivity.this,R.layout.activity_main,dateManagement.girdArray());
+            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray());
             calendarGridView.setAdapter(arrayAdapter);
         }
     };
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
             TextView titleText = (TextView) findViewById(R.id.titleText);
             titleText.setText(dateManagement.getTitleText());
-            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.activity_main,dateManagement.girdArray());
+            ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray());
             calendarGridView.setAdapter(arrayAdapter);
         }
     };

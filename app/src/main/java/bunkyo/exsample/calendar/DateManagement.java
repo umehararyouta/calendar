@@ -40,15 +40,16 @@ public class DateManagement {
     public List<Integer> girdArray(){
         Date startDate = cl.getTime();
         //月末の日数
-        int MonthEnd = cl.getActualMaximum(Calendar.WEEK_OF_MONTH);
+        int MonthEnd = cl.getActualMaximum(Calendar.DAY_OF_MONTH);
         List<Integer> day = new ArrayList<>();
+        cl.set(Calendar.DATE,1);
         if (DayOfWeek() != 0){
             int tmp = 0;
-            cl.add(Calendar.MONTH,-1);
-            int LatMonthEnd = cl.getActualMaximum(Calendar.WEEK_OF_MONTH);
+            cl.add(Calendar.DATE,-1);
+            int LastMonthEnd = cl.get(Calendar.DAY_OF_MONTH);
             //日曜日になるまで追加
-            while (DayOfWeek() == 7){
-                day.add(LatMonthEnd - tmp);
+            while (DayOfWeek() != 7){
+                day.add(LastMonthEnd - tmp);
                 tmp += 1;
                 cl.add(Calendar.DATE,-1);
             }
@@ -58,10 +59,11 @@ public class DateManagement {
         for (int i=0;i<MonthEnd;i++){
             day.add(i+1);
         }
-        cl.set(Calendar.DATE,cl.getActualMaximum(Calendar.WEEK_OF_MONTH));
-        if (DayOfWeek() != 7){
+        cl.add(Calendar.MONTH,1);
+        cl.set(Calendar.DATE,1);
+        if (DayOfWeek() != 1){
             int tmp= 1;
-            while (DayOfWeek() == 0){
+            while (DayOfWeek() != 1){
                 day.add(tmp);
                 tmp += 1;
                 cl.add(Calendar.DATE,1);

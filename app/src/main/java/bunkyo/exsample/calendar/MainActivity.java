@@ -80,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Integer ClickDate =GridArray.get(position);
                 Integer ClickPosition = position;
-                if (!((ClickDate>=20 && ClickPosition<=7) || (ClickDate<=7 && ClickPosition<=20))){
+                if (!((ClickDate>=20 && ClickPosition<=7) || (ClickDate<=7 && ClickPosition>=20))){
                     //クリックしたときの月を取得
                     Integer ClickMonth = dateManagement.CurrentMonth(dateManagement.LookingDate);
                     //クリックしたときの曜日を取得(1:日曜日, 2:月曜日, ..., 7:土曜日)
-                    Integer ClickDayOfWeek = dateManagement.LookingDayOfWeek(dateManagement.LookingDate);
+                    Integer ClickDayOfWeek = dateManagement.LookingDayOfWeek(dateManagement.LookingDate,ClickDate);
                     //intentにデータを送り、Activityを起動
                     Intent intent = new Intent(getApplicationContext(),DateScheduleActivity.class);
                     intent.putExtra("Month",ClickMonth);

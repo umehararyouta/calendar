@@ -10,4 +10,6 @@
     <color name="redColor">#DD2C00</color>
     <color name="whiteColor">#FFF</color>
     <color name="blackColor">#000</color>
+    <color name="colorOrange">#FF906D</color>
+    <color name="colorWhilePink">#FFB2CC</color>
 </resources>

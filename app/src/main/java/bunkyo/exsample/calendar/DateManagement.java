@@ -42,8 +42,9 @@ public class DateManagement {
         int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
         return firstDayOfWeek;
     }
-    public int LookingDayOfWeek(Date LookingDate){
+    public int LookingDayOfWeek(Date LookingDate,Integer day){
         cl.setTime(LookingDate);
+        cl.set(Calendar.DATE,day);
         int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
         return firstDayOfWeek;
     }

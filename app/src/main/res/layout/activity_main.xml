@@ -248,6 +248,5 @@
                 android:text="ADD TASK"
                 app:backgroundTint="@color/colorAccent" />
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

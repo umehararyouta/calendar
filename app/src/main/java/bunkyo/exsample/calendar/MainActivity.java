@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener scheduleButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),AddDateSchduleActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddDateScheduleActivity.class);
             startActivity(intent);
         }
     };
@@ -77,14 +77,5 @@ public class MainActivity extends AppCompatActivity {
 //
 //        });
     }
-//    public void insertDB(){
-//        SQLiteDatabase db = helper.getReadableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put();
-//        db.insert();
-//        db.close();
-//    }
-//    public void showDB(){
-//
-//    }
+
 }

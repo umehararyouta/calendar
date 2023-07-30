@@ -14,11 +14,10 @@ public class DB extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table Schedule(DayOfWeek Integer,Time Integer,Name text);");
+        db.execSQL("create table Schedule(ScheduleTitle text,DayOfWeek text,Time text,TeacherName text,TeacherMail text);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

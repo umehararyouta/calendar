@@ -17,6 +17,11 @@ public class DateManagement {
     }
 
 
+    public Integer CurrentMonth(Date LookingDate){
+        cl.setTime(LookingDate);
+        int currentMonth = cl.get(Calendar.MONTH)+1;
+        return currentMonth;
+    }
     //Calender型に次の月を指定させる
     public Date nextMonth(Date LookingDate){
         cl.setTime(LookingDate);
@@ -37,13 +42,18 @@ public class DateManagement {
         int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
         return firstDayOfWeek;
     }
+    public int LookingDayOfWeek(Date LookingDate){
+        cl.setTime(LookingDate);
+        int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
+        return firstDayOfWeek;
+    }
     public String getTitleText(Date LookingDate){
         cl.setTime(LookingDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
         return format.format(cl.getTime());
     }
 
-    //その月の要素を取得[日曜から1日まで＋1~n日＋n日から土曜まで]
+    //その月の要素を取得[日曜から月末まで＋1~n日＋月初から次の土曜まで]
     public List<Integer> girdArray(Date LookingDate){
         cl.setTime(LookingDate);
         Date startDate = cl.getTime();

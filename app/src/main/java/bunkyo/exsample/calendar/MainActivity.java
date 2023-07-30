@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,12 +73,27 @@ public class MainActivity extends AppCompatActivity {
         GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
         TextView titleText = (TextView) findViewById(R.id.titleText);
         titleText.setText(dateManagement.getTitleText(dateManagement.LookingDate));
-        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,dateManagement.girdArray(dateManagement.LookingDate));
+        List<Integer> GridArray = dateManagement.girdArray(dateManagement.LookingDate);
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,GridArray);
         calendarGridView.setAdapter(arrayAdapter);
-//        calendarGridView.setOnClickListener(new AdapterView.OnItemClickListener(){
-//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//
-//        });
+        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Integer ClickDate =GridArray.get(position);
+                Integer ClickPosition = position;
+                if (!((ClickDate>=20 && ClickPosition<=7) || (ClickDate<=7 && ClickPosition<=20))){
+                    //クリックしたときの月を取得
+                    Integer ClickMonth = dateManagement.CurrentMonth(dateManagement.LookingDate);
+                    //クリックしたときの曜日を取得(1:日曜日, 2:月曜日, ..., 7:土曜日)
+                    Integer ClickDayOfWeek = dateManagement.LookingDayOfWeek(dateManagement.LookingDate);
+                    //intentにデータを送り、Activityを起動
+                    Intent intent = new Intent(getApplicationContext(),DateScheduleActivity.class);
+                    intent.putExtra("Month",ClickMonth);
+                    intent.putExtra("Date",ClickDate);
+                    intent.putExtra("DayOfWeek",ClickDayOfWeek);
+                    //画面遷移(DateScheduleActivityに遷移)
+                    startActivity(intent);
+                }
+            }
+        });
     }
-
 }

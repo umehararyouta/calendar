@@ -2,6 +2,7 @@ package bunkyo.exsample.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +20,7 @@ public class AddDateScheduleActivity extends AppCompatActivity {
     //spinner用配列
     private final String[] DayOfWeekSpinner={"月","火","水","木","金","土","日"};
     private final String[] HoursSpinner = {"1時間目","2時間目","3時間目","4時間目","5時間目","6時間目","7時間目"};
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class AddDateScheduleActivity extends AppCompatActivity {
         findViewById(R.id.CalenderButton).setOnClickListener(calenderButton);
         findViewById(R.id.ScheduleButton).setOnClickListener(scheduleButton);
         findViewById(R.id.TaskButton).setOnClickListener(taskButton);
+        findViewById(R.id.CancelButton).setOnClickListener(cancelButton);
 
         Spinner dayOfWeekSpinner = findViewById(R.id.spinner);
         Spinner hoursSpinner = findViewById(R.id.spinner2);
@@ -89,8 +92,14 @@ public class AddDateScheduleActivity extends AppCompatActivity {
             }
         });
     }
-
-
+    //キャンセルボタンの処理
+    View.OnClickListener cancelButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
+    };
     //画面下部のボタン3つの処理
     View.OnClickListener calenderButton = new View.OnClickListener() {
         @Override

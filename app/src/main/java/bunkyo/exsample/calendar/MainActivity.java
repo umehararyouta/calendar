@@ -10,11 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     DB helper;
+    private Date currentDate;
     private String tmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,5 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void CountDownSchedule(){
+        //現在のDateを取得
+        DateManagement dateManagement = new DateManagement();
+        Date CurrentDate = dateManagement.nowDate();
+        long currentUnixTime = dateManagement.getCurrentUnixTime(CurrentDate);
+
+
+
     }
 }

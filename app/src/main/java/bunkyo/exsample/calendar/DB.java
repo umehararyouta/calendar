@@ -15,7 +15,7 @@ public class DB extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table Schedule(ScheduleTitle text,DayOfWeek text,Time text,TeacherName text,TeacherMail text);");
-        db.execSQL("create table Task(TaskTitle text,Date text,Time text);");
+        db.execSQL("create table Task(TaskTitle text,Date text,Time text,UnixTime text);");//Date = yyyy/mm,Time = hh:mm
     }
 
     @Override

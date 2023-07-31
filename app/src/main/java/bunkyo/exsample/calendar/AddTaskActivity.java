@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.util.Locale;
 
 import kotlinx.coroutines.scheduling.Task;
@@ -91,10 +92,17 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             //Task(TaskTitle text,DayOfWeek text,Date text,Time text)
             SQLiteDatabase db = helper.getReadableDatabase();
             ContentValues cv = new ContentValues();
-
+            DateManagement dateManagement = new DateManagement();
+            long unixTime;
+            try {
+                unixTime = dateManagement.convertDateTimePickToUnixTime(Date,Time);
+            } catch (ParseException e) {
+                unixTime = 1690790571;
+            }
             cv.put("TaskTitle",TaskTitle);
             cv.put("Date",Date);
             cv.put("Time",Time);
+            cv.put("UnixTime",unixTime);
             db.insert("Task",null,cv);
             db.close();
             Toast.makeText(AddTaskActivity.this,"課題を追加しました。",Toast.LENGTH_SHORT).show();

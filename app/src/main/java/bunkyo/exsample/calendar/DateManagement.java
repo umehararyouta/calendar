@@ -2,6 +2,9 @@ package bunkyo.exsample.calendar;
 
 import android.widget.Adapter;
 
+import java.lang.ref.Cleaner;
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -96,5 +99,27 @@ public class DateManagement {
         Date LookingDate = cl.getTime();
         return LookingDate;
     }
+    public long getCurrentUnixTime(Date currentDate){
+        Calendar cl = Calendar.getInstance();
+        cl.setTime(currentDate);
+        long unixTime = cl.getTimeInMillis()/1000;
+        return unixTime;
+    }
+    public long convertDateTimePickToUnixTime(String dateString,String timeString) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        Date date = dateFormat.parse(dateString);
+        Date time = timeFormat.parse(timeString);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        Calendar timeCalender = Calendar.getInstance();
+        timeCalender.setTime(time);
+        calendar.set(Calendar.HOUR_OF_DAY,timeCalender.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE,timeCalender.get(Calendar.MINUTE));
+        long unixTime = calendar.getTimeInMillis()/1000;
+        return unixTime;
+    }
+
     public static Date LookingDate = nowDate();
 }

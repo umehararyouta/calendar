@@ -51,6 +51,11 @@ public class DateManagement {
         int firstDayOfWeek = cl.get(Calendar.DAY_OF_WEEK);
         return firstDayOfWeek;
     }
+    public int LookingDate(Date LookingDate){
+        cl.setTime(LookingDate);
+        int Date = cl.get(Calendar.DATE);
+        return Date;
+    }
     public String getTitleText(Date LookingDate){
         cl.setTime(LookingDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM", Locale.US);
@@ -99,6 +104,7 @@ public class DateManagement {
         Date LookingDate = cl.getTime();
         return LookingDate;
     }
+
     public long getCurrentUnixTime(Date currentDate){
         Calendar cl = Calendar.getInstance();
         cl.setTime(currentDate);

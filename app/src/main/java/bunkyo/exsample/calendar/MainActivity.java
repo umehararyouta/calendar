@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         currentDateUnixTime = dateManagement.getCurrentUnixTime(currentDate);
         CountDownTask();
         long taskCountNumber  = millisecondDiff();
-        final CountDown countDown = new CountDown(taskCountNumber,60000);
+        final CountDown countDown = new CountDown(taskCountNumber,1000);
         countDown.start();
         String ScheduleTimeText = CountDownSchedule();
         ScheduleTime.setText(ScheduleTimeText);
@@ -132,13 +132,19 @@ public class MainActivity extends AppCompatActivity {
         Date CurrentDate = dateManagement.nowDate();
         long currentUnixTime = dateManagement.getCurrentUnixTime(CurrentDate);
         //DBから最も近い未来のデータを引き出す
+        //db.execSQL("create table Task(TaskTitle text,Date text,Time text,UnixTime text);");//Date = yyyy/mm,Time = hh:mm
         SQLiteDatabase db = helper.getReadableDatabase();
         ContentValues cv = new ContentValues();
-        String query = "SELECT * FROM Task WHERE UnixTime > ? ORDER BY UnixTime ASC LIMIT 1";
+        String query = "SELECT * FROM Task WHERE CAST(UnixTime AS INTEGER) > ? ORDER BY UnixTime ASC LIMIT 1";
         String[] selectionArgs = {String.valueOf(currentUnixTime)};
         Cursor cursor = db.rawQuery(query,selectionArgs);
         //UnixTimeを指定する
-        TaskTimeUnixTime = cursor.getString(cursor.getColumnIndexOrThrow("UnixTime"));
+        if (cursor != null && cursor.moveToFirst()) {
+            TaskTimeUnixTime = cursor.getString(cursor.getColumnIndexOrThrow("UnixTime"));
+        }else{
+            TaskTimeUnixTime = "0";
+        }
+
     }
     public String CountDownSchedule(){
         DateManagement dateManagement = new DateManagement();
@@ -152,18 +158,30 @@ public class MainActivity extends AppCompatActivity {
         //db.execSQL("create table Schedule(ScheduleTitle text,DayOfWeek text,Time text,TeacherName text,TeacherMail text);");
         SQLiteDatabase db = helper.getReadableDatabase();
         ContentValues cv = new ContentValues();
-        String query = "SELECT * FROM Schedule Where DayOfWeek = ? ORDER BY Time ASC LIMIT 1";
+        String query = "SELECT * FROM Schedule WHERE DayOfWeek = ? ORDER BY Time ASC LIMIT 1";
         String[] selectionArgs = {(StrCurrentDayOfWeek)};
         Cursor cursor = db.rawQuery(query,selectionArgs);
-        String title = cursor.getString(cursor.getColumnIndexOrThrow("Title"));
-        String time = cursor.getString(cursor.getColumnIndexOrThrow("Time"));
-        String text = time + title;
-        return text;
+        if (cursor != null && cursor.moveToFirst()) {
+            String title = cursor.getString(cursor.getColumnIndexOrThrow("Title"));
+            String time = cursor.getString(cursor.getColumnIndexOrThrow("Time"));
+            String text = time + title;
+            return text;
+        }else{
+            String text = "なし";
+            return text;
+        }
+
+
     }
 
     public long millisecondDiff(){
         long longTaskTimeUnixTime = Long.parseLong(TaskTimeUnixTime);
-        long millisecondDiff = longTaskTimeUnixTime - currentDateUnixTime;
+        long millisecondDiff;
+        if (longTaskTimeUnixTime == 0){
+            millisecondDiff = 1;
+        }else{
+            millisecondDiff = longTaskTimeUnixTime - currentDateUnixTime;
+        }
         return millisecondDiff;
     }
     class CountDown extends CountDownTimer{

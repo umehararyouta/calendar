@@ -13,18 +13,27 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.DayOfWeek;
+
 public class DateTaskActivity extends AppCompatActivity {
     DB helper;
+    private Integer monthReceivedItem;
+    private Integer dateReceivedItem;
+    private Integer dayOfWeekReceivedItem;
+    private String ym;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.date_schedule);
+        setContentView(R.layout.activity_date_task);
         helper = new DB(this);
-
+        findViewById(R.id.CalenderButton).setOnClickListener(calenderButton);
+        findViewById(R.id.ScheduleButton).setOnClickListener(scheduleButton);
+        findViewById(R.id.TaskButton).setOnClickListener(taskButton);
         findViewById(R.id.DateScheduleButton).setOnClickListener(dateScheduleButton);
         findViewById(R.id.DateTaskButton).setOnClickListener(dateTaskButton);
         findViewById(R.id.BackButton).setOnClickListener(backButton);
-        findViewById(R.id.DateScheduleAddSchedule).setOnClickListener(dateScheduleAddTask);
+        findViewById(R.id.DateScheduleAddTask).setOnClickListener(dateScheduleAddTask);
 
 
         TextView DateTextView = (TextView) findViewById(R.id.DateTextView);
@@ -35,30 +44,33 @@ public class DateTaskActivity extends AppCompatActivity {
 //      intent.putExtra("Date",ClickDate);
 //      intent.putExtra("DayOfWeek",ClickDayOfWeek);
         Intent receivedIntent = getIntent();
-        Integer monthReceivedItem = receivedIntent.getIntExtra("Month",0);
-        Integer dateReceivedItem = receivedIntent.getIntExtra("Date",0);
-        Integer dayOfWeekReceivedItem = receivedIntent.getIntExtra("DayOfWeek",0);
+        monthReceivedItem = receivedIntent.getIntExtra("Month",0);
+        dateReceivedItem = receivedIntent.getIntExtra("Date",0);
+        dayOfWeekReceivedItem = receivedIntent.getIntExtra("DayOfWeek",0);
+        ym = receivedIntent.getStringExtra("yyyy.mm");
         String DayOfWeek = DayOfWeekIntToStr(dayOfWeekReceivedItem);
         String tmp = monthReceivedItem + "月" + dateReceivedItem +"日" + "("+ DayOfWeek +")";
         DateTextView.setText(tmp);
 
+        ym = ym + "/" + dateReceivedItem;
+
         //データベースから曜日に合ったデータを取得
 
+        //("create table Task(TaskTitle text,Date text,Time text)");
         SQLiteDatabase db = helper.getReadableDatabase();
         ContentValues cv = new ContentValues();
-        String query = "SELECT * FROM Schedule WHERE DayOfWeek = ? ORDER BY Time";
-        String[] selectionArgs = {DayOfWeek};
+        //cursorからデータを取り出す
+        String query = "SELECT * FROM Task WHERE Date = ? ORDER BY Time";
+        String[] selectionArgs = {ym};
         Cursor cursor = db.rawQuery(query,selectionArgs);
         String scheduleDataText = "";
-        //cursorからデータを取り出す
+        //
 
         if (cursor != null && cursor.moveToFirst()){
             do{
-                String scheduleTitle = cursor.getString(cursor.getColumnIndexOrThrow("ScheduleTitle"));
+                String taskTitle = cursor.getString(cursor.getColumnIndexOrThrow("TaskTitle"));
                 String time = cursor.getString(cursor.getColumnIndexOrThrow("Time"));
-                String teacherName = cursor.getString(cursor.getColumnIndexOrThrow("TeacherName"));
-                String teacherMail = cursor.getString(cursor.getColumnIndexOrThrow("TeacherMail"));
-                scheduleDataText = time + " " + scheduleTitle + " " + teacherName;
+                scheduleDataText = time + "まで:" + time;
                 TextView textView = new TextView(this);
                 textView.setText(scheduleDataText);
                 textView.setBackgroundColor(Color.parseColor("#FFB2CC"));
@@ -72,12 +84,18 @@ public class DateTaskActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(),DateScheduleActivity.class);
+            intent.putExtra("Month",monthReceivedItem);
+            intent.putExtra("Date",dateReceivedItem);
+            intent.putExtra("DayOfWeek",dayOfWeekReceivedItem);
+            intent.putExtra("yyyy.mm",ym);
             startActivity(intent);
         }
     };
     View.OnClickListener dateTaskButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         }
     };
     View.OnClickListener backButton = new View.OnClickListener() {
@@ -89,6 +107,27 @@ public class DateTaskActivity extends AppCompatActivity {
     };
 
     View.OnClickListener dateScheduleAddTask = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener calenderButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener scheduleButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), AddDateScheduleActivity.class);
+            startActivity(intent);
+        }
+    };
+    View.OnClickListener taskButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);

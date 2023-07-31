@@ -50,7 +50,7 @@ public class DateManagement {
     }
     public String getTitleText(Date LookingDate){
         cl.setTime(LookingDate);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM", Locale.US);
         return format.format(cl.getTime());
     }
 

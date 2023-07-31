@@ -36,7 +36,7 @@ public class AddDateScheduleActivity extends AppCompatActivity {
 
         Spinner dayOfWeekSpinner = findViewById(R.id.spinner);
         Spinner hoursSpinner = findViewById(R.id.spinner2);
-        Button submitSchedule = findViewById(R.id.SubmidSchedule);
+        Button submitSchedule = findViewById(R.id.SubmitSchedule);
         EditText ScheduleTitle = findViewById(R.id.TitleEditText);
         EditText TeacherName = findViewById(R.id.TeacherNameEdieText);
         EditText TeacherMail = findViewById(R.id.TeacherMailEditText);

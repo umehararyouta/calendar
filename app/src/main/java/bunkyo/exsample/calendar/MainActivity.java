@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     DB helper;
+    private String tmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         DateManagement dateManagement = new DateManagement();
         GridView calendarGridView = (GridView) findViewById(R.id.calendarGridView);
         TextView titleText = (TextView) findViewById(R.id.titleText);
-        titleText.setText(dateManagement.getTitleText(dateManagement.LookingDate));
+        tmp = dateManagement.getTitleText(dateManagement.LookingDate);
+        titleText.setText(tmp);
         List<Integer> GridArray = dateManagement.girdArray(dateManagement.LookingDate);
         ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(MainActivity.this,R.layout.date,GridArray);
         calendarGridView.setAdapter(arrayAdapter);
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("Month",ClickMonth);
                     intent.putExtra("Date",ClickDate);
                     intent.putExtra("DayOfWeek",ClickDayOfWeek);
+                    intent.putExtra("yyyy.mm",tmp);
                     //画面遷移(DateScheduleActivityに遷移)
                     startActivity(intent);
                 }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DateScheduleActivity extends AppCompatActivity {
+public class DateTaskActivity extends AppCompatActivity {
     DB helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class DateScheduleActivity extends AppCompatActivity {
         findViewById(R.id.DateScheduleButton).setOnClickListener(dateScheduleButton);
         findViewById(R.id.DateTaskButton).setOnClickListener(dateTaskButton);
         findViewById(R.id.BackButton).setOnClickListener(backButton);
-        findViewById(R.id.DateScheduleAddSchedule).setOnClickListener(dateScheduleAddSchedule);
+        findViewById(R.id.DateScheduleAddSchedule).setOnClickListener(dateScheduleAddTask);
 
 
         TextView DateTextView = (TextView) findViewById(R.id.DateTextView);
@@ -71,13 +71,13 @@ public class DateScheduleActivity extends AppCompatActivity {
     View.OnClickListener dateScheduleButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),DateScheduleActivity.class);
+            startActivity(intent);
         }
     };
     View.OnClickListener dateTaskButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),DateTaskActivity.class);
-            startActivity(intent);
         }
     };
     View.OnClickListener backButton = new View.OnClickListener() {
@@ -88,7 +88,7 @@ public class DateScheduleActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener dateScheduleAddSchedule = new View.OnClickListener() {
+    View.OnClickListener dateScheduleAddTask = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);

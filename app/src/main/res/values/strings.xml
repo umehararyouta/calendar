@@ -12,4 +12,6 @@
     <color name="blackColor">#000</color>
     <color name="colorOrange">#FF906D</color>
     <color name="colorWhilePink">#FFB2CC</color>
+    <string name="no_date">No Data</string>
+    <string name="pick_date">Pick Date</string>
 </resources>

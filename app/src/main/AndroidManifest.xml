@@ -13,15 +13,17 @@
         android:theme="@style/Theme.Calendar"
         tools:targetApi="31">
         <activity
+            android:name=".DateTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddDateScheduleActivity"
             android:exported="true" />
         <activity
             android:name=".DateScheduleActivity"
             android:exported="true" />
         <activity
-            android:name="AddTaskActivity"
-            android:exported="true"
-            />
+            android:name=".AddTaskActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
